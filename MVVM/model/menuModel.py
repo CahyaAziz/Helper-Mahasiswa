@@ -13,7 +13,6 @@ class MenuModel:
         if os.path.exists(self.data_file):
             with open(self.data_file, 'r') as file:
                 return json.load(file)
-        return {"users": []}  # Return an empty structure if the file doesn't exist.
 
     def find_user(self):
         """Find the user by username."""

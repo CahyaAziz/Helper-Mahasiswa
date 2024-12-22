@@ -3,7 +3,17 @@
         {
             "username": "miko",
             "password": "miko1209",
-            "scheduled_tasks": [],
+            "scheduled_tasks": [
+                {
+                    "tanggal": "2024-12-18",
+                    "mata_kuliah": "asd",
+                    "judul": "  fffffff",
+                    "deskripsi": "pfdj",
+                    "tingkat_kesulitan": "sulit",
+                    "tenggat": "2024-12-29",
+                    "status": "Belum Selesai"
+                }
+            ],
             "university_schedule": []
         }
     ]

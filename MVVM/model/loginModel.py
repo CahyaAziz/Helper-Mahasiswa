@@ -10,11 +10,18 @@ class LoginModel:
         self.user_data = self.load_user_data()
 
     def load_user_data(self):
-        if os.path.exists(self.data_file):
-            with open(self.data_file, 'r') as file:
-                return json.load(file)
-            
-        return {"users": []}
+        if not os.path.exists(self.data_file):
+            self.create_user_data_file()
+
+        with open(self.data_file, 'r') as file:
+            return json.load(file)
+        
+    def create_user_data_file(self):
+        default_data = {"users": []}
+        os.makedirs(os.path.dirname(self.data_file), exist_ok=True)  # Ensure the directory exists
+        with open(self.data_file, 'w') as file:
+            json.dump(default_data, file, indent=4)  # Write the default data to the file
+        print(f"File '{self.data_file}' created with default data.")
 
     def save_user_data(self):
         with open(self.data_file, 'w') as file:

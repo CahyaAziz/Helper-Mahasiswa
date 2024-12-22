@@ -57,18 +57,19 @@ class TugasView:
         while True:
             date_input = input(prompt)
             try:
-                datetime.strptime(date_input, "%d-%m-%Y")
-                return date_input
+                date = datetime.strptime(date_input, "%d-%m-%Y")
+                return date.date()
             except ValueError:
                 print("Format tanggal tidak valid. Harap masukkan dalam format DD-MM-YYYY.")
 
     def get_tugas_input(self):
         helper.clear()
 
-        date = self.get_valid_date("Masukkan tanggal (DD-MM-YYYY):")
-        matkul = input("Masukkan nama mata kuliah: ")
-        judul = input("Masukkan judul tugas: ")
-        desc = input("Masukkan deskripsi  tugas: ")
+        date = datetime.today().date()
+        matkul = helper.validate_isalpha("Masukkan nama mata kuliah: ")
+        judul = helper.validate_isalnum("Masukkan judul tugas: ")
+        desc = helper.validate_isalnum("Masukkan deskripsi tugas: ")
+
         while True:
             print("Pilih tingkat kesulitan tugas:")
             print("1. Mudah")
@@ -86,10 +87,15 @@ class TugasView:
                 break
             else:
                 print("Opsi tidak valid! Silakan coba lagi.\n")
-                time.sleep(3)
-        dl = self.get_valid_date("\nMasukkan tanggal tenggat tugas (DD-MM-YYYY):")
+                time.sleep(1)
+        while True:
+            dl = self.get_valid_date("\nMasukkan tanggal tenggat tugas (DD-MM-YYYY):")
+            if dl > date:
+                break
+            else:
+                print("Tanggal tengat waktu lebih awal dari tanggal hari ini")
 
-        return date, matkul, judul, desc, diff, dl
+        return str(date), matkul, judul, desc, diff, str(dl)
     
     def display_tugas(self):
         """Display tasks nicely."""
